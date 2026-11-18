@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GTA VI | Bem-vindo a Leonida — Projeto Educacional</title>
+  <style>
+    :root { --fundo:#0c1020; --painel:#171a30; --rosa:#ff4f9b; --laranja:#ffb46a; --texto:#f9f5fc; --cinza:#c4bcd1; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { font-family:Arial,Helvetica,sans-serif; background:var(--fundo); color:var(--texto); }
+    a { color:inherit; text-decoration:none; }
+    button,input,select { font:inherit; }
+    button { cursor:pointer; }
+    .topo { position:sticky; top:0; z-index:10; display:flex; flex-wrap:wrap; gap:16px; justify-content:space-between; align-items:center; padding:16px 6%; background:rgba(12,16,32,.95); border-bottom:1px solid #39334e; }
+    .marca { font-weight:900; font-size:25px; letter-spacing:2px; }
+    .marca span,.destaque { color:var(--rosa); }
+    nav { display:flex; gap:20px; flex-wrap:wrap; font-size:14px; }
+    nav a:hover { color:var(--rosa); }
+    .btn { background:linear-gradient(110deg,var(--rosa),var(--laranja)); color:#170c20; border:0; padding:12px 20px; border-radius:9px; font-weight:bold; display:inline-block; }
+    .btn:hover { filter:brightness(1.12); }
+    .btn-sec { background:#29253d; color:white; border:1px solid #665876; }
+    .hero { min-height:520px; display:flex; align-items:center; padding:70px 6%; position:relative; background:linear-gradient(90deg,rgba(12,16,32,.96),rgba(12,16,32,.72) 52%,rgba(12,16,32,.1)), url('https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/wallpapers/games/vi/Jason_and_Lucia_01/Jason_and_Lucia_01_landscape.jpg') center 30% / cover; }
+    .hero-conteudo { position:relative; max-width:650px; }
+    .etiqueta { display:inline-block; color:#170c20; background:var(--laranja); padding:6px 12px; font-weight:bold; font-size:12px; border-radius:25px; margin-bottom:20px; }
+    h1 { font-size:clamp(52px,9vw,115px); letter-spacing:-6px; line-height:.95; text-shadow:0 4px 18px #130e20; }
+    .hero p { font-size:18px; line-height:1.6; margin:24px 0; max-width:520px; }
+    .hero-botoes { display:flex; gap:12px; flex-wrap:wrap; }
+    .secao { padding:70px 6%; max-width:1400px; margin:auto; }
+    .secao h2 { font-size:clamp(28px,4vw,43px); margin-bottom:12px; }
+    .subtitulo { color:var(--cinza); line-height:1.6; margin-bottom:28px; }
+    .informacoes { display:flex; flex-wrap:wrap; gap:18px; }
+    .info { background:var(--painel); border:1px solid #302d48; border-radius:12px; padding:18px 22px; min-width:170px; flex:1; }
+    .info small { display:block; color:var(--cinza); margin-bottom:9px; }
+    .info strong { font-size:19px; }
+    .ferramentas { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:24px; }
+    .ferramentas input,.formulario input,.formulario select { background:#211e35; color:white; border:1px solid #514862; border-radius:9px; padding:12px; min-width:220px; }
+    .ferramentas input { flex:1; }
+    .filtro { background:#29253d; border:1px solid #554a67; border-radius:25px; padding:10px 17px; color:white; }
+    .filtro.ativo { background:var(--rosa); border-color:var(--rosa); color:#14091b; }
+    .grade { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:22px; }
+    .cartao { background:var(--painel); border:1px solid #37314b; border-radius:15px; overflow:hidden; display:flex; flex-direction:column; }
+    .cartao.oculto { display:none; }
+    .cartao img { width:100%; height:220px; object-fit:cover; background:linear-gradient(130deg,#82306a,#e78575); }
+    .corpo { padding:20px; display:flex; flex-direction:column; gap:13px; flex:1; }
+    .corpo small { color:var(--laranja); text-transform:uppercase; font-weight:bold; letter-spacing:1px; }
+    .corpo h3 { font-size:23px; }
+    .corpo p { color:var(--cinza); line-height:1.55; flex:1; }
+    .favorito { align-self:flex-start; background:#2c2940; color:#fff; border:1px solid #554b66; padding:9px 15px; border-radius:8px; }
+    .favorito.marcado { background:var(--rosa); color:#1e0e24; }
+    .aviso { color:var(--laranja); min-height:24px; margin-top:15px; }
+    .contador { font-size:clamp(40px,7vw,68px); font-weight:900; color:var(--laranja); margin:14px 0 20px; }
+    .formulario { display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+    .formulario input { flex:1; }
+    .rodape { padding:30px 6%; border-top:1px solid #302d48; text-align:center; color:var(--cinza); line-height:1.7; }
+    .toast { position:fixed; bottom:24px; right:24px; z-index:20; background:#292039; color:white; padding:15px 20px; border-left:5px solid var(--rosa); border-radius:8px; max-width:330px; box-shadow:0 8px 30px #0008; }
+    @media(max-width:650px) { .hero { min-height:500px; background-position:62% center; } .hero { background-image:linear-gradient(90deg,rgba(12,16,32,.91),rgba(12,16,32,.65)),url('https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/wallpapers/games/vi/Jason_and_Lucia_01/Jason_and_Lucia_01_landscape.jpg'); } h1 { letter-spacing:-3px; } .secao { padding:45px 5%; } nav { gap:12px; } }
+  </style>
+</head>
+<body>
+  <header class="topo">
+    <a href="#inicio" class="marca">GRAND THEFT AUTO <span>VI</span></a>
+    <nav>
+      <a href="#sobre">Sobre</a>
+      <a href="#explorar">Explorar</a>
+      <a href="#lancamento">Lançamento</a>
+      <a href="#contato">Novidades</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-conteudo">
+        <span class="etiqueta">FAN SITE • PROJETO EDUCACIONAL</span>
+        <h1>GTA <span class="destaque">VI</span></h1>
+        <p>Conheça Jason, Lucia e os lugares de Leonida. Explore este site interativo inspirado no universo de Grand Theft Auto VI.</p>
+        <div class="hero-botoes">
+          <a class="btn" href="#explorar">Explorar Leonida</a>
+          <a class="btn btn-sec" href="https://www.rockstargames.com/VI" target="_blank" rel="noopener noreferrer">Site oficial</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="secao" id="sobre">
+      <h2>Bem-vindo a <span class="destaque">Vice City</span></h2>
+      <p class="subtitulo">Jason e Lucia se envolvem em uma conspiração criminosa que se estende pelo estado de Leonida. Conheça o cenário e os protagonistas divulgados pela Rockstar Games.</p>
+      <div class="informacoes">
+        <div class="info"><small>Lançamento anunciado</small><strong>19/11/2026</strong></div>
+        <div class="info"><small>Plataformas anunciadas</small><strong>PS5 e Xbox Series X|S</strong></div>
+        <div class="info"><small>Local principal</small><strong>Vice City • Leonida</strong></div>
+      </div>
+    </section>
+
+    <section class="secao" id="explorar">
+      <h2>Explore o universo de <span class="destaque">GTA VI</span></h2>
+      <p class="subtitulo">Digite um nome ou filtre os cartões. Use o botão Favoritar para praticar eventos de JavaScript.</p>
+      <div class="ferramentas">
+        <input id="busca" type="search" placeholder="Pesquisar personagem ou local..." aria-label="Pesquisar cartões">
+        <button class="filtro ativo" data-categoria="todos">Todos</button>
+        <button class="filtro" data-categoria="personagem">Personagens</button>
+        <button class="filtro" data-categoria="local">Locais</button>
+      </div>
+      <div class="grade" id="grade">
+        <article class="cartao" data-nome="lucia caminos" data-categoria="personagem">
+          <img src="https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/wallpapers/games/vi/Jason_and_Lucia_01/Jason_and_Lucia_01_landscape.jpg" alt="Arte oficial de Jason e Lucia, com Lucia à esquerda" style="object-position:20% center" loading="lazy">
+          <div class="corpo"><small>Personagem</small><h3>Lucia Caminos</h3><p>Uma das protagonistas da história, ao lado de Jason.</p><button class="favorito" aria-pressed="false">♡ Favoritar</button></div>
+        </article>
+        <article class="cartao" data-nome="jason duval" data-categoria="personagem">
+          <img src="https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/wallpapers/games/vi/Jason_and_Lucia_01/Jason_and_Lucia_01_landscape.jpg" alt="Arte oficial de Jason e Lucia, com Jason à direita" style="object-position:76% center" loading="lazy">
+          <div class="corpo"><small>Personagem</small><h3>Jason Duval</h3><p>Protagonista que enfrenta perigos e conspirações com Lucia.</p><button class="favorito" aria-pressed="false">♡ Favoritar</button></div>
+        </article>
+        <article class="cartao" data-nome="vice city" data-categoria="local">
+          <img src="https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/global/downloads/wallpapers/games/vi/Jason_and_Lucia_01/Jason_and_Lucia_01_landscape.jpg" alt="Arte de GTA VI com prédios e palmeiras de Vice City" style="object-position:center top" loading="lazy">
+          <div class="corpo"><small>Local</small><h3>Vice City</h3><p>Uma cidade de praias, palmeiras e luzes de neon no estado de Leonida.</p><button class="favorito" aria-pressed="false">♡ Favoritar</button></div>
+        </article>
+        <article class="cartao" data-nome="leonida" data-categoria="local">
+          <img src="https://www.saudigamer.com/wp-content/uploads/2025/05/gta-6-release-date.jpg" alt="Arte promocional de GTA VI com skyline urbano" loading="lazy">
+          <div class="corpo"><small>Local</small><h3>Leonida</h3><p>O estado fictício no qual se desenrola a história de GTA VI.</p><button class="favorito" aria-pressed="false">♡ Favoritar</button></div>
+        </article>
+      </div>
+      <p id="resultado" class="aviso" aria-live="polite"></p>
+    </section>
+
+    <section class="secao" id="lancamento">
+      <h2>Contagem para o <span class="destaque">lançamento</span></h2>
+      <p class="subtitulo">Data de lançamento anunciada pela Rockstar Games: 19 de novembro de 2026.</p>
+      <div id="contador" class="contador" aria-live="off">Carregando...</div>
+      <a href="https://www.rockstargames.com/VI/media" class="btn btn-sec" target="_blank" rel="noopener noreferrer">Ver trailers e imagens oficiais</a>
+    </section>
+
+    <section class="secao" id="contato">
+      <h2>Receba uma <span class="destaque">mensagem de demonstração</span></h2>
+      <p class="subtitulo">Este formulário valida os dados e mostra uma mensagem na tela. Nenhuma informação é enviada ou armazenada.</p>
+      <form id="formulario" class="formulario">
+        <input id="nome" placeholder="Seu nome" autocomplete="name" required>
+        <input id="email" type="email" placeholder="Seu e-mail" autocomplete="email" required>
+        <button class="btn" type="submit">Enviar</button>
+      </form>
+    </section>
+  </main>
+  <footer class="rodape">Projeto didático não oficial, sem afiliação com a Rockstar Games.<br>Grand Theft Auto e imagens promocionais pertencem aos respectivos titulares.</footer>
+  <div id="avisos" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
